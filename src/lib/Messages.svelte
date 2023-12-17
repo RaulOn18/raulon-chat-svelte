@@ -74,7 +74,13 @@
         alt=""
       />
       <div class="msg-content">
-        <small>sent by @{message.expand?.sender_user_id?.name}</small>
+        <small
+          >{message.expand?.sender_user_id?.name}{" "}
+          <!-- just minute and hour -->
+          <span
+            >{new Date(message.created).toLocaleString("en-US", {hour: "numeric", minute: "numeric", hour12: true})}</span
+          ></small
+        >
         <div class="msg-text">{message.message}</div>
       </div>
     </div>
@@ -105,9 +111,20 @@
     scroll-snap-stop: normal;
   }
 
+  .messages::-webkit-scrollbar {
+    display: none;
+  }
+
   .msg {
     display: flex;
     gap: 10px;
+    padding: 10px;
+  }
+
+  .msg:hover {
+    background-color: #4a4a4a;
+    padding: 10px;
+    border-radius: 5px;
   }
 
   .msg-content {
@@ -115,6 +132,24 @@
     flex-direction: column;
     text-align: start;
     gap: 5px;
+  }
+
+  .msg-content small {
+    font-size: 12px;
+    /* random color text */
+    color: rgb(
+      255,
+      255,
+      255,
+        /* Math.random() * 255, Math.random() * 255, Math.random() * 255 */
+    );
+    font-weight: bold;
+  }
+
+  .msg-content small span {
+    font-size: 12px;
+    font-weight: normal;
+    opacity: 0.4;
   }
 
   .avatar {
